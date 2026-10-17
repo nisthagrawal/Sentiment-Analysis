@@ -1,6 +1,7 @@
 import json
 import os
 import re
+from pathlib import Path
 import numpy as np
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
@@ -9,7 +10,7 @@ from tensorflow.keras.models import load_model
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # ------------------ CONFIG ------------------
-MODEL_DIR = "model_files"
+MODEL_DIR = Path(__file__).resolve().parent / "model_files"
 MAX_LEN = 200
 NUM_WORDS = 10000
 UNK_TOKEN = 2  # unknown word index
@@ -34,8 +35,8 @@ def text_to_sequence(text, word_index):
     return pad_sequences([seq], maxlen=MAX_LEN, padding='post', truncating='post')
 
 # ------------------ LOAD MODEL (ONLY ONCE) ------------------
-model_path = os.path.join(MODEL_DIR, 'best_model.h5')
-word_index_path = os.path.join(MODEL_DIR, 'word_index.json')
+model_path = MODEL_DIR / 'best_model.h5'
+word_index_path = MODEL_DIR / 'word_index.json'
 
 if not os.path.exists(model_path):
     raise FileNotFoundError(f"Model not found at {model_path}")
@@ -43,9 +44,9 @@ if not os.path.exists(model_path):
 if not os.path.exists(word_index_path):
     raise FileNotFoundError(f"Word index not found at {word_index_path}")
 
-model = load_model(model_path)
+model = load_model(str(model_path))
 
-with open(word_index_path, 'r') as f:
+with open(word_index_path, 'r', encoding='utf-8') as f:
     word_index = json.load(f)
 
 # ------------------ PREDICTION FUNCTION ------------------
