@@ -1,7 +1,6 @@
 fastapi
-numpy
+numpy<2
 plotly
-requests
 streamlit
-tensorflow
+tensorflow==2.15.0
 uvicorn[standard]
