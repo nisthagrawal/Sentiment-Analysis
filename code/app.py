@@ -1,9 +1,8 @@
 import streamlit as st
-import requests
 import plotly.graph_objects as go
 import plotly.express as px
+from predict import predict
 
-API_URL = "http://127.0.0.1:8000/predict"
 
 st.set_page_config(page_title="AI Review Intelligence", layout="wide")
 
@@ -106,8 +105,9 @@ with tab1:
             st.warning("Enter text")
         else:
             try:
-                res = requests.post(API_URL, json={"text": text})
-                result = res.json()
+                result = predict(text)
+                if "error" in result:
+                    raise ValueError(result["error"])
 
                 label, prob = adjust_prediction(
                     text,
@@ -165,8 +165,8 @@ with tab1:
 
                     st.plotly_chart(fig)
 
-            except:
-                st.error("API not running")
+            except Exception as exc:
+                st.error(f"Analysis failed: {exc}")
 
 # ================= INSIGHTS =================
 with tab2:
