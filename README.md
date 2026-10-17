@@ -1,4 +1,3 @@
-Warning: fs was declared with const; use let for reassignable variables.
 # AI Review Intelligence
 
 An early sentiment analysis project built around the IMDB movie review dataset. It includes a TensorFlow/Keras binary classifier, a FastAPI prediction endpoint, and a Streamlit dashboard.
