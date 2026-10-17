@@ -1,0 +1,7 @@
+fastapi
+numpy
+plotly
+requests
+streamlit
+tensorflow
+uvicorn[standard]
