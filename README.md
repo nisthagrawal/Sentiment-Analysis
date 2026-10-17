@@ -22,21 +22,20 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Start the API from the `code` directory:
+Start the dashboard from the project root:
+
+```bash
+streamlit run code/app.py
+```
+
+The dashboard loads the saved model directly, so it does not need the API running. To run the optional FastAPI endpoint separately, use a second terminal:
 
 ```bash
 cd code
 uvicorn main:app --reload
 ```
 
-In a second terminal, activate the same environment and start the dashboard:
-
-```bash
-cd code
-streamlit run app.py
-```
-
-The API docs are at <http://127.0.0.1:8000/docs>; the dashboard opens in the browser. Keep the model files and `word_index.json` in `code/model_files/`.
+The API docs are at <http://127.0.0.1:8000/docs>. Keep the model files and `word_index.json` in `code/model_files/`.
 
 ## Project layout
 
